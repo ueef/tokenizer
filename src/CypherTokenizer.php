@@ -32,7 +32,11 @@ class CypherTokenizer implements TokenizerInterface
 
     public function build(TokenInterface $token): string
     {
-        return $this->encrypter->encrypt($this->encoder->encode($token->pack()));
+        if ($token instanceof $this->proto) {
+            return $this->encrypter->encrypt($this->encoder->encode($token->pack()));
+        }
+
+        throw new InvalidTokenException("token must be instance of " . get_class($this->proto));
     }
 
     public function parse(string $token): TokenInterface
