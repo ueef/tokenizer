@@ -7,9 +7,6 @@ use Ueef\Packable\Interfaces\PackableInterface;
 
 interface TokenInterface extends PackableInterface
 {
-    /**
-     * @return TokenInterface
-     */
-    public function unpack(array $values);
+    public function unpack(array $values): TokenInterface;
     public function isExpired(): bool;
 }
