@@ -5,6 +5,7 @@
   "description": "",
   "require": {
     "php": ">=7.1",
+    "ueef/hasher": "^0.1",
     "ueef/encoder": "^0.1",
     "ueef/packable": "^0.8",
     "ueef/encrypter": "^0.2"

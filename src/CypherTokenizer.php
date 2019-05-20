@@ -42,11 +42,11 @@ class CypherTokenizer implements TokenizerInterface
             $token = $this->encoder->decode($token);
             $token = $this->proto->unpack($token);
         } catch (Throwable $e) {
-            throw new InvalidTokenException("token is invalid", 0, $e);
+            throw new InvalidTokenException('token is invalid', $e);
         }
 
         if ($token->isExpired()) {
-            throw new ExpiredTokenException("token is expired");
+            throw new ExpiredTokenException('token is expired');
         }
 
         return $token;
