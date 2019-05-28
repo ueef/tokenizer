@@ -4,13 +4,12 @@
   "license": "MIT",
   "description": "",
   "require": {
-    "php": ">=7.1",
+    "php": ">=7.2",
     "ueef/hasher": "^0.1",
+    "ueef/packer": "^0.0.1",
     "ueef/encoder": "^0.1",
-    "ueef/packable": "^0.8",
     "ueef/encrypter": "^0.2"
   },
-  "require-dev": {},
   "autoload": {
     "psr-4": {
         "Ueef\\Tokenizer\\": "src"
