@@ -10,9 +10,8 @@ use Ueef\Hasher\Interfaces\HasherInterface;
 use Ueef\Packer\Interfaces\PackerInterface;
 use Ueef\Tokenizer\Exceptions\ExpiredTokenException;
 use Ueef\Tokenizer\Exceptions\InvalidTokenException;
-use Ueef\Tokenizer\Interfaces\ExpirableTokenInterface;
-use Ueef\Tokenizer\Interfaces\TokenInterface;
 use Ueef\Tokenizer\Interfaces\TokenizerInterface;
+use Ueef\Tokenizer\Interfaces\ExpirableTokenInterface;
 
 class SignedCypherTokenizer implements TokenizerInterface
 {
@@ -37,7 +36,7 @@ class SignedCypherTokenizer implements TokenizerInterface
         $this->encrypter = $encrypter;
     }
 
-    public function build(TokenInterface $token): string
+    public function build(object $token): string
     {
         $token = $this->packer->pack($token);
         $token = $this->encoder->encode($token);
@@ -47,16 +46,12 @@ class SignedCypherTokenizer implements TokenizerInterface
         return $token;
     }
 
-    public function parse(string $token): TokenInterface
+    public function parse(string $token): object
     {
         $token = $this->decrypt($token);
         $token = $this->verify($token);
         $token = $this->decode($token);
         $token = $this->unpack($token);
-
-        if (!$token instanceof TokenInterface) {
-            throw new ExpiredTokenException('token is invalid');
-        }
 
         if ($token instanceof ExpirableTokenInterface && $token->isExpired()) {
             throw new ExpiredTokenException('token is expired');
@@ -93,7 +88,7 @@ class SignedCypherTokenizer implements TokenizerInterface
         }
     }
 
-    private function unpack(array $token): TokenInterface
+    private function unpack(array $token): object
     {
         try {
             return $this->packer->unpack($token);

@@ -10,7 +10,6 @@ use Ueef\Packer\Interfaces\PackerInterface;
 use Ueef\Tokenizer\Exceptions\ExpiredTokenException;
 use Ueef\Tokenizer\Exceptions\InvalidTokenException;
 use Ueef\Tokenizer\Interfaces\ExpirableTokenInterface;
-use Ueef\Tokenizer\Interfaces\TokenInterface;
 use Ueef\Tokenizer\Interfaces\TokenizerInterface;
 
 /**
@@ -35,12 +34,12 @@ class CypherTokenizer implements TokenizerInterface
         $this->encrypter = $encrypter;
     }
 
-    public function build(TokenInterface $token): string
+    public function build(object $token): string
     {
         return $this->encrypter->encrypt($this->encoder->encode($this->packer->pack($token)));
     }
 
-    public function parse(string $token): TokenInterface
+    public function parse(string $token): object
     {
         try {
             $token = $this->encrypter->decrypt($token);
@@ -48,10 +47,6 @@ class CypherTokenizer implements TokenizerInterface
             $token = $this->packer->unpack($token);
         } catch (Throwable $e) {
             throw new InvalidTokenException('token is invalid', $e);
-        }
-
-        if (!$token instanceof TokenInterface) {
-            throw new InvalidTokenException('token is invalid');
         }
 
         if ($token instanceof ExpirableTokenInterface && $token->isExpired()) {
