@@ -6,7 +6,7 @@
   "require": {
     "php": ">=7.2",
     "ueef/hasher": "^0.1",
-    "ueef/packer": "^0.0.1",
+    "ueef/packer": "^0.0",
     "ueef/encoder": "^0.1",
     "ueef/encrypter": "^0.2"
   },
