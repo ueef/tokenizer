@@ -3,6 +3,9 @@
   "type": "library",
   "license": "MIT",
   "description": "",
+  "config": {
+    "vendor-dir": "var/vendor"
+  },
   "require": {
     "php": ">=7.2",
     "ueef/hasher": "^0.1",
